@@ -27,6 +27,8 @@ public class FilteredNews {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	private String ticker;
+	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="id", unique=true)
 	private Criteria criteria = new Criteria();

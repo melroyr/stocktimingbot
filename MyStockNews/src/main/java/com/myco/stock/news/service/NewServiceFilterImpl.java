@@ -19,7 +19,7 @@ public class NewServiceFilterImpl implements IServiceFilter {
     private final String newAPIURl = "https://newsapi.org/v2/top-headlines?country={countryName}&category={categoryValue}&apiKey=e9476942946e4e4298ab8815d16cd689";
 
     @Override
-    public FilteredNews getRelevantNews(String country, String category, String keyword) {
+    public FilteredNews getRelevantNews(String ticker, String country, String category, String keyword) {
 
         String endPoint = newAPIURl.replace("{countryName}", country);
         endPoint = endPoint.replace("{categoryValue}", category);
@@ -27,6 +27,7 @@ public class NewServiceFilterImpl implements IServiceFilter {
         News news = restTemplate.getForObject(endPoint, News.class);
 
         FilteredNews filteredNews = new FilteredNews();
+        filteredNews.setTicker(ticker);
         filteredNews.getCriteria().setCountry(country);
         filteredNews.getCriteria().setCategory(category);
         filteredNews.getCriteria().setKeyword(keyword);

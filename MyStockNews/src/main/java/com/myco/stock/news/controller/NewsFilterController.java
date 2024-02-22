@@ -19,9 +19,9 @@ public class NewsFilterController {
     IServiceFilter serviceFilter;
 
     @GetMapping(path = "/filterNews")
-    public FilteredNews getNews(@RequestParam String country, @RequestParam String category, @RequestParam String keyword) throws Exception {
+    public FilteredNews getNews(@RequestParam String ticker, @RequestParam String country, @RequestParam String category, @RequestParam String keyword) throws Exception {
 
-    	FilteredNews filteredNews = serviceFilter.getRelevantNews(country,category,keyword);
+    	FilteredNews filteredNews = serviceFilter.getRelevantNews(ticker, country, category, keyword);
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(filteredNews);
         return filteredNews;
