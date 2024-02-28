@@ -43,7 +43,7 @@ public class MyStockTraderApplicationService {
 	public String getStockPrice(String symbol, String function) throws IOException, InterruptedException {
 		String jsonData = getStockData(symbol, function);
 		ObjectMapper objectMapper = new ObjectMapper();
-		StocTradeData apiData = objectMapper.readValue(jsonData, StocTradeData.class);	
+		StocTradeData apiData = objectMapper.readValue(jsonData, StocTradeData.class);
 		apiData.setData(jsonData);
 		stockrepo.save(apiData);
 		return "Work Done";
