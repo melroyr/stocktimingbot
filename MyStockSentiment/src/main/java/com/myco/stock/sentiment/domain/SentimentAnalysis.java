@@ -15,7 +15,7 @@ public class SentimentAnalysis {
 //     		"Is artificial intelligence less than our intelligence?";
 //     String text = "Never underestimate yourself you are much more than you think\n" + 
 //     		"";
-	 String text = "Google posts awesome profits";
+	 String text = "BedBathAndBeyond devastating revenue decline";
 		
      SentimentAnalyzer sentimentAnalyzer = new SentimentAnalyzer();
      sentimentAnalyzer.initialize();

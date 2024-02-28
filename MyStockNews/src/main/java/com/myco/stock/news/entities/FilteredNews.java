@@ -1,6 +1,7 @@
 package com.myco.stock.news.entities;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -28,6 +29,8 @@ public class FilteredNews {
 	private Long id;
 	
 	private String ticker;
+	private Date startDatetime;
+	private Date endDatetime;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="id", unique=true)
