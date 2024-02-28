@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 //@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 //@TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
 
-public class APIData {
+public class StocTradeData {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)

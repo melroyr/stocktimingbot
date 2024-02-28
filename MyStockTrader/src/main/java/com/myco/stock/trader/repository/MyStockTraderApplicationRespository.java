@@ -3,9 +3,9 @@ package com.myco.stock.trader.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.stock.AlphaVantageAPI.entity.APIData;
+import com.myco.stock.trader.domain.StocTradeData;
 
 @Repository
-public interface Stockrepo extends JpaRepository<APIData,Integer> {
+public interface MyStockTraderApplicationRespository extends JpaRepository<StocTradeData,Integer> {
 
 }

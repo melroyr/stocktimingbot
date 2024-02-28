@@ -8,20 +8,20 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.stock.AlphaVantageAPI.config.AlphaVantageConfig;
-import com.stock.AlphaVantageAPI.entity.APIData;
-import com.stock.AlphaVantageAPI.repository.Stockrepo;
+import com.myco.stock.trader.config.MyStockTraderApplicationConfig;
+import com.myco.stock.trader.domain.StocTradeData;
+import com.myco.stock.trader.repository.MyStockTraderApplicationRespository;
 
 
 @Service
-public class AlphaVantageService {
-	private final AlphaVantageConfig config;
+public class MyStockTraderApplicationService {
+	private final MyStockTraderApplicationConfig config;
 	private final RestTemplate restTemplate;
 
 	@Autowired
-	private Stockrepo stockrepo;
+	private MyStockTraderApplicationRespository stockrepo;
 	
-	public AlphaVantageService(AlphaVantageConfig config) {
+	public MyStockTraderApplicationService(MyStockTraderApplicationConfig config) {
 		this.config = config;
 		this.restTemplate = new RestTemplate();
 	}
@@ -35,7 +35,7 @@ public class AlphaVantageService {
 		String json = response.getBody();
 		
 		ObjectMapper objectMapper = new ObjectMapper();
-		APIData apiData = objectMapper.readValue(json, APIData.class);
+		StocTradeData apiData = objectMapper.readValue(json, StocTradeData.class);
 		
 		return json;
 	}
@@ -43,7 +43,7 @@ public class AlphaVantageService {
 	public String getStockPrice(String symbol, String function) throws IOException, InterruptedException {
 		String jsonData = getStockData(symbol, function);
 		ObjectMapper objectMapper = new ObjectMapper();
-		APIData apiData = objectMapper.readValue(jsonData, APIData.class);	
+		StocTradeData apiData = objectMapper.readValue(jsonData, StocTradeData.class);	
 		apiData.setData(jsonData);
 		stockrepo.save(apiData);
 		return "Work Done";
