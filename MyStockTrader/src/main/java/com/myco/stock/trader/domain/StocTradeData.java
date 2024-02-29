@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "stocksData")
+@Table(name = "stocktradedata")
 @JsonIgnoreProperties(ignoreUnknown = true)
 //@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 //@TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
@@ -29,7 +29,7 @@ import lombok.NoArgsConstructor;
 public class StocTradeData {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
 //    @Column(columnDefinition = "jsonb") 

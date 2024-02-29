@@ -1,13 +1,13 @@
 package com.myco.stock.trader.service;
 
 import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.myco.stock.trader.config.MyStockTraderApplicationConfig;
 import com.myco.stock.trader.domain.StocTradeData;
 import com.myco.stock.trader.repository.MyStockTraderApplicationRespository;
@@ -44,6 +44,10 @@ public class MyStockTraderApplicationService {
 		String jsonData = getStockData(symbol, function);
 		ObjectMapper objectMapper = new ObjectMapper();
 		StocTradeData apiData = objectMapper.readValue(jsonData, StocTradeData.class);
+		System.out.println("High: " + apiData.getGlobalQuote().getHigh());
+		System.out.println("Low: " + apiData.getGlobalQuote().getLow());
+		System.out.println("Price: " + apiData.getGlobalQuote().getPrice());
+		System.out.println("Prev PRice: " + apiData.getGlobalQuote().getPreviousClose());
 		apiData.setData(jsonData);
 		stockrepo.save(apiData);
 		return "Work Done";

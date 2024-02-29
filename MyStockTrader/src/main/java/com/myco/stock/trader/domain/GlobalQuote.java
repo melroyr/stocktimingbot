@@ -17,13 +17,13 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "globalQuote")
+@Table(name = "globalquote")
 @JsonIgnoreProperties(ignoreUnknown = true)
 //@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class GlobalQuote {
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@JsonProperty(value = "01. symbol")
@@ -45,13 +45,13 @@ public class GlobalQuote {
     private int volume;
 	
 	@JsonProperty(value = "07. latest trading day")
-    private Date latestTradingDay;
+    private Date ltd;
 	
 	@JsonProperty(value = "08. previous close")
     private double previousClose;
 	
 	@JsonProperty(value = "09. change")
-    private double change;
+    private double priceChange;
 	
 	@OneToOne(mappedBy = "globalQuote")
     private StocTradeData apiData;
