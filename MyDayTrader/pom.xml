@@ -21,6 +21,8 @@
   </parent>
   
   <modules>
+	<module>MyServiceRegistry</module>
+    <module>MyAPIGateway</module>
     <module>MyStockCommon</module>
     <module>MyStockNews</module>
     <module>MyStockSentiment</module>

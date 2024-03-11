@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.myco.stock.trader.config.MyStockTraderApplicationConfig;
-import com.myco.stock.trader.domain.StocTradeData;
+import com.myco.stock.trader.domain.StockTradeData;
 import com.myco.stock.trader.repository.MyStockTraderApplicationRespository;
 
 
@@ -17,6 +17,10 @@ import com.myco.stock.trader.repository.MyStockTraderApplicationRespository;
 public class MyStockTraderApplicationService {
 	private final MyStockTraderApplicationConfig config;
 	private final RestTemplate restTemplate;
+	
+	public static String BUY = "BUY";
+	public static String SELL = "SELL";
+	public static String HOLD = "HOLD";
 
 	@Autowired
 	private MyStockTraderApplicationRespository stockrepo;
@@ -27,23 +31,26 @@ public class MyStockTraderApplicationService {
 	}
 	
 	public String getStockData(String symbol, String function) throws IOException, InterruptedException {
+		System.out.println("Trader Symbol:" + symbol);
+		System.out.println("Trader Function:" + function);
 		String apiKey = config.getApiKey();
 		String apiUrl = "https://www.alphavantage.co/query?function=" + function + "&symbol=" + symbol + "&apikey="
 				+ apiKey;
+		//https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=IBM&apikey=demo
 		ResponseEntity<String> response = restTemplate.getForEntity(apiUrl, String.class);
 		
 		String json = response.getBody();
 		
 		ObjectMapper objectMapper = new ObjectMapper();
-		StocTradeData apiData = objectMapper.readValue(json, StocTradeData.class);
+		StockTradeData apiData = objectMapper.readValue(json, StockTradeData.class);
 		
 		return json;
 	}
 	
-	public String getStockPrice(String symbol, String function, int sentiment) throws IOException, InterruptedException {
+	public String getStockPrice(String symbol, String function, double sentiment) throws IOException, InterruptedException {
 		String jsonData = getStockData(symbol, function);
 		ObjectMapper objectMapper = new ObjectMapper();
-		StocTradeData apiData = objectMapper.readValue(jsonData, StocTradeData.class);
+		StockTradeData apiData = objectMapper.readValue(jsonData, StockTradeData.class);
 		
 		double high = apiData.getGlobalQuote().getHigh();
 		double low = apiData.getGlobalQuote().getLow();
@@ -80,23 +87,28 @@ public class MyStockTraderApplicationService {
 		System.out.println("Price Relative to prev price: " + priceRelativeToPrevPrice);
 		System.out.println("Stock Sentiment: " + sentiment);
 		
+		String advice = HOLD;
 		if ((priceRelativeToHighLow == 0) &&
 				(priceRelativeToPrevPrice == 0) &&
 				(sentiment == 0)) {
 			System.out.println("HOLD");
+			advice = HOLD;
 		} else if((priceRelativeToPrevPrice < 0) &&
 				(sentiment > 0)) {
 			System.out.println("BUY");
+			advice = BUY;
 		} else if ((priceRelativeToPrevPrice > 0) &&
 				(sentiment < 0)) {
 			System.out.println("SELL");
+			advice = SELL;
 		} else {
 			System.out.println("No advice at the moment");
 		}
 		
+		apiData.setAdvice(advice);
 		apiData.setData(jsonData);
 		stockrepo.save(apiData);
-		return "Work Done";
+		return advice;
 	}
 }
 	

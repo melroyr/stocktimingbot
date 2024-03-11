@@ -4,10 +4,12 @@ import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.myco.stock.common.dto.StockAdviceDTO;
 import com.myco.stock.trader.service.MyStockTraderApplicationService;
 
 @RestController
@@ -22,11 +24,11 @@ public class MyStockTraderApplicationController {
 	 * this.alphaVantageService = alphaVantageService; }
 	 */
 	
-    @GetMapping
-    public ResponseEntity<String> getStockPrice(@RequestParam String symbol,
-    		@RequestParam String function,
-    		@RequestParam int sentiment) throws IOException, InterruptedException {
-		String stockPrice = alphaVantageService.getStockPrice(symbol,function, sentiment);
+    @PostMapping
+    public ResponseEntity<String> stockAdvice(@RequestBody StockAdviceDTO stockAdviceDTO) throws IOException, InterruptedException {
+		String stockPrice = alphaVantageService.getStockPrice(stockAdviceDTO.getTicker(),
+															  stockAdviceDTO.getFunction(),
+															  stockAdviceDTO.getSentiment());
 		
 		return ResponseEntity.ok(stockPrice);
 	}

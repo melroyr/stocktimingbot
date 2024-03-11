@@ -54,7 +54,7 @@ public class GlobalQuote {
     private double priceChange;
 	
 	@OneToOne(mappedBy = "globalQuote")
-    private StocTradeData apiData;
+    private StockTradeData apiData;
 	
 	//private Long globalquote_id;
 	

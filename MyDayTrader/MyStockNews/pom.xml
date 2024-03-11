@@ -6,7 +6,7 @@
 		<artifactId>MyDayTrader</artifactId>
 		<groupId>com.myco.mydaytrader</groupId>
 		<version>0.0.1-SNAPSHOT</version>
-  </parent>
+    </parent>
   
 	<groupId>com.myco.stock.news</groupId>
 	<artifactId>MyStockNews</artifactId>
@@ -32,6 +32,16 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+			<version>4.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+			<version>4.1.0</version>
+		</dependency>
+		<dependency>
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
@@ -50,6 +60,11 @@
 		<dependency>
     		<groupId>jakarta.validation</groupId>
     		<artifactId>jakarta.validation-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.myco.stock.common</groupId>
+  			<artifactId>MyStockCommon</artifactId>
+  			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 

@@ -36,7 +36,7 @@ public class FilteredNews {
 	@JoinColumn(name="id", unique=true)
 	private Criteria criteria = new Criteria();
 	
-	@JsonIgnore
+	//@JsonIgnore
 	@OneToMany(mappedBy = "filteredNews")
 	private List<FilteredArticle> filteredArticles = new ArrayList<>();
 }

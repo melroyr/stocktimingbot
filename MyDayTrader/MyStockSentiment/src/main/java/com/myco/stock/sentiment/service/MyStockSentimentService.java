@@ -22,6 +22,10 @@ public class MyStockSentimentService {
 	
 	public TickerNetSentiment getTickerNetSentiment(FilteredNewsDTO filteredNewsDTO) {
 		
+		if((filteredNewsDTO == null) || (filteredNewsDTO.getNewsTitles() == null)) {
+			throw new IllegalArgumentException("FilteredNewsDTO has null values");
+		}
+		
 		netSentiment = 0.0;
 		List<String> newsTitles = filteredNewsDTO.getNewsTitles();
 		for(String newsTitle : newsTitles) {
